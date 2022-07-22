@@ -151,7 +151,7 @@ class CalrissianContext:
     def _get_api_client(kubeconfig_file: TextIO = None):
 
         proxy_url = os.getenv("HTTP_PROXY", None)
-        kubeconfig = os.getenv("KUBECONFIG", None)
+        kubeconfig = "~/.kube/config" #os.getenv("KUBECONFIG", None)
 
         if proxy_url:
             api_config = Configuration(host=proxy_url)
@@ -257,7 +257,7 @@ class CalrissianContext:
         return self.is_object_created("read_namespaced_secret", **kwargs)
 
     @staticmethod
-    def retry(fun, max_tries=10, interval=5, **kwargs):
+    def retry(fun, max_tries=20, interval=5, **kwargs):
         for i in range(max_tries):
             try:
                 time.sleep(interval)
